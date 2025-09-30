@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: {
     default: "Portafolio de Daniel Cañizares Aguilar — Desarrollador Fullstack",
-    template: "%s | Marca",
+    template: "%s | Portafolio de Daniel",
   },
   description:
     "Portafolio profesional de Daniel Cañizares Aguilar, ingeniero de software especializado en React, APIs REST y backend con Python/Django. Proyectos destacados, experiencia y contacto.",
@@ -46,7 +46,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Portafolio de Daniel Cañizares Aguilar",
-    description: "Descubre los proyectos y habilidades de Daniel Cañizares Aguilar, desarrollador fullstack.",
+    description:
+      "Descubre los proyectos y habilidades de Daniel Cañizares Aguilar, desarrollador fullstack.",
     creator: "@danielcaag17",
     images: ["/og-image.jpg"],
   },
