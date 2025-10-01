@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     "fullstack",
     "fastapi",
   ],
+  icons: {
+    icon: "/favicon.svg",
+  },
   authors: [{ name: "Daniel Cañizares Aguilar" }],
   metadataBase: new URL("https://danielcanizaresaguilar.dev"),
   openGraph: {
