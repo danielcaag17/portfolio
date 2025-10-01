@@ -26,11 +26,12 @@ export const metadata: Metadata = {
     "fastapi",
   ],
   authors: [{ name: "Daniel Cañizares Aguilar" }],
+  metadataBase: new URL("https://danielcanizaresaguilar.dev"),
   openGraph: {
     title: "Portafolio de Daniel Cañizares Aguilar — Desarrollador Fullstack",
     description:
       "Conoce los proyectos de Daniel Cañizares Aguilar, desarrollador Fullstack.",
-    url: "https://portfolio-daniel-canizares.vercep.app",
+    url: "https://danielcanizaresaguilar.dev",
     siteName: "Portfolio de Daniel Cañizares Aguilar",
     images: [
       {
