@@ -1,68 +1,174 @@
-"use client"
+"use client";
 
-import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
-import { useEffect, useRef, useState } from "react"
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
+// const experiences_default = [
+//   {
+//     period: "2024 — PRESENT",
+//     title: "Senior Frontend Engineer",
+//     company: "TechCorp",
+//     description:
+//       "Lead frontend development for enterprise SaaS platform. Architected and implemented design system used across 15+ products. Mentored junior developers and established best practices for accessibility and performance.",
+//     technologies: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
+//   },
+//   {
+//     period: "2022 — 2024",
+//     title: "Full Stack Developer",
+//     company: "StartupXYZ",
+//     description:
+//       "Built and maintained customer-facing web applications serving 100K+ users. Implemented real-time features using WebSockets and optimized database queries reducing load times by 60%.",
+//     technologies: ["Node.js", "PostgreSQL", "React", "AWS"],
+//   },
+//   {
+//     period: "2020 — 2022",
+//     title: "Frontend Developer",
+//     company: "Digital Agency",
+//     description:
+//       "Developed responsive websites and web applications for diverse clients. Collaborated with designers to transform Figma designs into pixel-perfect implementations.",
+//     technologies: ["JavaScript", "Vue.js", "SCSS", "Figma"],
+//   },
+// ];
 
 const experiences = [
   {
-    period: "2024 — PRESENT",
-    title: "Senior Frontend Engineer",
-    company: "TechCorp",
-    description:
-      "Lead frontend development for enterprise SaaS platform. Architected and implemented design system used across 15+ products. Mentored junior developers and established best practices for accessibility and performance.",
-    technologies: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
+    period: "2024 — 2025",
+    title: "Erasmus in Naples - Italy",
+    company: "Università degli Studi della Campania Luigi Vanvitelli",
+    companyURL:
+      "https://www.ingegneria.unicampania.it/didattica/corsi-di-studio/magistrale-in-ingegneria-informatica",
+    description: (
+      <>
+        Erasmus for the final year of university and final degree project
+        completed in Naples. The most relevant subjects are:{" "}
+        <strong>Distributed System</strong>,{" "}
+        <strong>Knowledge Engineering and Artificial Intelligence</strong>,{" "}
+        <strong>Advanced Software Engineering</strong> and{" "}
+        <strong>Machine Learning</strong>
+      </>
+    ),
+    technologies: [
+      "Python",
+      "Django",
+      "FastAPI",
+      "YOLO",
+      "Ultralytics",
+      "NumPy",
+      "scikit-learn",
+      "Matplotlib",
+      "TensorFlow",
+      "seaborn",
+      "SCRUM",
+      "Render",
+      "GitLab",
+      "GitHub",
+      "Docker",
+      "HTML",
+      "CSS",
+    ],
   },
   {
-    period: "2022 — 2024",
-    title: "Full Stack Developer",
-    company: "StartupXYZ",
-    description:
-      "Built and maintained customer-facing web applications serving 100K+ users. Implemented real-time features using WebSockets and optimized database queries reducing load times by 60%.",
-    technologies: ["Node.js", "PostgreSQL", "React", "AWS"],
-  },
-  {
-    period: "2020 — 2022",
+    period: "2020 — 2025",
     title: "Frontend Developer",
-    company: "Digital Agency",
-    description:
-      "Developed responsive websites and web applications for diverse clients. Collaborated with designers to transform Figma designs into pixel-perfect implementations.",
-    technologies: ["JavaScript", "Vue.js", "SCSS", "Figma"],
+    company:
+      "Facultat d'Informàtica de Barcelona - Universitat Politècnica de Catalunya",
+    companyURL:
+      "https://www.fib.upc.edu/ca/estudis/graus/grau-en-enginyeria-informatica",
+    description: (
+      <>
+        My experience in the Bachelor's Degree in Computer Engineering has{" "}
+        provided me with the skills, abilities, and knowledge necessary to work{" "}
+        in the field of computer engineering. Focusing my career on the Software{" "}
+        Engineering specialty, I am highly qualified in programming, analyzing,{" "}
+        and integrating systems and applications. This solid technical{" "}
+        foundation prepares me for the management of IT projects and{" "}
+        departments, addressing a wide variety of work areas in software and{" "}
+        management.
+      </>
+    ),
+    technologies: [
+      "JavaScript",
+      "Vue.js",
+      "CSS",
+      "HTML",
+      "Agile",
+      "C",
+      "C++",
+      "Python",
+      "OOP",
+      "SQL",
+      "PostgreSQL",
+      "JSON",
+      "Linux",
+      "OpenGL",
+      "Data Structure and Algorithms",
+      "Parallel Programming",
+      "Django",
+      "SCRUM",
+      "JavaScript",
+      "Software Architecture",
+    ],
   },
-]
+];
 
 export function Experience() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const sectionRef = useRef<HTMLElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  // Estado para rastrear qué tarjeta (u otro elemento) está siendo "hovered" (pasado el cursor por encima)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  // Referencia al elemento <section> que representa el componente. Se usa para observar su visibilidad en pantalla.
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Estado para saber si el componente es visible en el viewport (pantalla) del usuario
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // new IntersectionObserver que detecta si el componente está entrando en la vista del usuario
     const observer = new IntersectionObserver(
+      // Arrow function con destructuración de arrays en sus parámetros
       ([entry]) => {
+        // Si el componente entra en la vista, actualizamos el estado a visible
         if (entry.isIntersecting) {
-          setIsVisible(true)
+          setIsVisible(true);
         }
       },
-      { threshold: 0.1 },
-    )
+      // Umbral de visibilidad: 10% del componente debe estar visible para activar el evento
+      { threshold: 0.1 }
+    );
 
+    // Si la referencia al <section> existe, se comienza a observarla
     if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+      observer.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect()
-  }, [])
+    // Cleanup
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="experience" ref={sectionRef} className="relative min-h-screen px-6 py-20 lg:px-20">
-      <div className="pointer-events-none absolute left-0 top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent lg:left-80 lg:block" />
+    <section
+      id="experience"
+      // Se pasa la referencia al DOM para que el IntersectionObserver pueda observar cuándo este
+      // bloque entra en pantalla.
+      ref={sectionRef}
+      className="relative min-h-screen px-6 py-20 lg:px-20"
+    >
+      {/* Línea decorativa vertical con gradient */}
+      {/* hidden por defecto, pero en pantallas grandes display block (se hace visible) 
+      bg-gradiente-to-b --> gradiente de colores de top a bottom */}
+      <div
+        className="pointer-events-none absolute left-0 top-0 hidden h-full w-px bg-gradient-to-b 
+      from-transparent via-primary/30 to-transparent lg:left-80 lg:block"
+      />
 
+      {/* mx-auto --> centrar el div horizontalmente */}
       <div className="relative z-10 mx-auto max-w-4xl">
         <h2
           className="mb-4 text-sm font-mono text-primary"
           style={{
             animation: isVisible ? "reveal 0.6s ease-out" : "none",
-            opacity: isVisible ? 1 : 0,
           }}
         >
           {"<experience />"}
@@ -71,27 +177,72 @@ export function Experience() {
           className="mb-16 text-4xl font-bold tracking-tight md:text-5xl"
           style={{
             animation: isVisible ? "reveal 0.8s ease-out 0.2s both" : "none",
-            opacity: isVisible ? 1 : 0,
           }}
         >
           Professional Journey
         </h3>
 
+        {/* CARDs de las experiencias */}
+        {/* space-y-12 --> añadir margen bottom de 3rem (48px) entre cada Card */}
         <div className="space-y-12">
           {experiences.map((exp, index) => (
             <Card
               key={index}
+              // Funciones para cambiar el estado
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="group relative overflow-hidden border-border bg-card p-8 transition-all duration-500 hover:border-primary/50"
+              // border-border --> Aplica color personalizado al borde
+              // bg-card --> Aplica color personalizado al background
+              // El overflow-hidden solo funcionará cuando tenga un alto y ancho limitado
+              // Ahora mismo tiene el mismo efecto que overflow-visible
+              className="group relative overflow-hidden border-border bg-card p-8 transition-all 
+              duration-500 hover:border-primary/50"
               style={{
-                animation: isVisible ? `reveal 0.6s ease-out ${0.6 + index * 0.2}s both` : "none",
-                opacity: isVisible ? 1 : 0,
-                transform: hoveredIndex === index ? "translateX(12px)" : "translateX(0)",
-                boxShadow: hoveredIndex === index ? "0 10px 40px oklch(0.65 0.19 180 / 0.15)" : "none",
+                // El transform no funciona
+                animation: isVisible
+                  ? `reveal 0.6s ease-out ${0.6 + index * 0.2}s both`
+                  : "none",
+                // No funciona el transform pues se sobreescribe por la animación reveal
+                transform:
+                  hoveredIndex === index ? "translateX(12px)" : "translateX(0)",
+                boxShadow:
+                  hoveredIndex === index
+                    ? "0 10px 40px oklch(0.65 0.19 180 / 0.15)"
+                    : "none",
               }}
             >
+              {/* Botón para abrir el sitio web */}
+              {exp.companyURL && (
+                <Button
+                  // Poner la key de nuevo es redundante (y potencialmente problemático)
+                  // El Button ya está dentro de un padre con la key={index}
+                  // key={index}
+                  variant="ghost"
+                  size="icon"
+                  className="absolute right-4 top-4 z-20 p-1 h-7 w-14 transition-all 
+                  duration-300 hover:scale-110 hover:text-primary"
+                  asChild
+                >
+                  <a
+                    href={exp.companyURL}
+                    target={
+                      exp.companyURL.startsWith("http") ? "_blank" : undefined
+                    }
+                    rel={
+                      exp.companyURL.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    aria-label={`Open ${exp.company} in a new tab`}
+                  >
+                    <ExternalLink className="h-5 w-5 text-white" />
+                  </a>
+                </Button>
+              )}
+
+              {/* Línea vertical de color animada */}
               <div
+                // w-1 --> 1 * var(--spacing) = 0.25rem = 4px
                 className="absolute left-0 top-0 w-1 bg-primary transition-all duration-500"
                 style={{
                   height: hoveredIndex === index ? "100%" : "0%",
@@ -99,8 +250,10 @@ export function Experience() {
                 }}
               />
 
+              {/* Efecto de iluminación top-left al hacer hover */}
               <div
-                className="pointer-events-none absolute -left-20 -top-20 h-40 w-40 rounded-full bg-primary/20 blur-3xl transition-opacity duration-500"
+                className="pointer-events-none absolute -left-20 -top-20 h-40 w-40 
+                rounded-full bg-primary/20 blur-3xl transition-opacity duration-500"
                 style={{
                   opacity: hoveredIndex === index ? 1 : 0,
                 }}
@@ -108,11 +261,15 @@ export function Experience() {
 
               <div className="relative z-10">
                 <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
+                  {/* div necesario para dividir los bloques de texto */}
                   <div>
                     <div
                       className="mb-2 text-xs font-mono text-muted-foreground transition-colors"
                       style={{
-                        color: hoveredIndex === index ? "oklch(0.65 0.19 180)" : undefined,
+                        color:
+                          hoveredIndex === index
+                            ? "oklch(0.65 0.19 180)"
+                            : undefined,
                       }}
                     >
                       {exp.period}
@@ -124,17 +281,23 @@ export function Experience() {
                   </div>
                 </div>
 
-                <p className="mb-6 leading-relaxed text-muted-foreground text-pretty">{exp.description}</p>
+                <p className="mb-6 leading-relaxed text-muted-foreground text-pretty">
+                  {exp.description}
+                </p>
 
                 <div className="flex flex-wrap gap-2">
                   {exp.technologies.map((tech, techIndex) => (
                     <Badge
                       key={tech}
                       variant="secondary"
+                      // Cada Badge tiene su propio hover --> TODO: jugar con eso y crear un botón?
                       className="bg-secondary/50 text-xs transition-all hover:bg-primary/20 hover:text-primary"
                       style={{
-                        animation: hoveredIndex === index ? `reveal 0.3s ease-out ${techIndex * 0.05}s both` : "none",
-                        transform: hoveredIndex === index ? "translateY(-2px)" : "translateY(0)",
+                        animation:
+                          // Animación que eleva ligeremente a todos los Badge (insignias)
+                          hoveredIndex === index
+                            ? `float-up 0.3s ease-out ${techIndex * 0.05}s both`
+                            : "none",
                       }}
                     >
                       {tech}
@@ -147,5 +310,5 @@ export function Experience() {
         </div>
       </div>
     </section>
-  )
+  );
 }
