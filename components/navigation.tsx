@@ -132,7 +132,7 @@ export function Navigation() {
           </p>
         </div>
 
-        {/* space-y-1 --> Aplica un margen vertical (margin-top) de 0.25rem (4px) entre cada botón. 
+        {/* space-y-1 --> Aplica un margen vertical (margin-bottom) de 0.25rem (4px) entre cada botón. 
         Se aplica una animación de forma retardada a todo el bloque de botones
         both --> la animación sigue las reglas de forwards y backwards
         */}
