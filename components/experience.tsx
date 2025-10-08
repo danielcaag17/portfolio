@@ -98,7 +98,6 @@ const experiences = [
       "Django",
       "HTML",
       "JavaScript",
-      "JavaScript",
       "JSON",
       "Linux",
       "OOP",
