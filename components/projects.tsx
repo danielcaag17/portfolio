@@ -7,35 +7,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useRef, useState } from "react";
 import { projects } from "@/data/projects-data";
+import { useIsVisible } from "@/hooks/use-is-visible";
 
 export function Projects() {
   // Estado para rastrear qué project está siendo "hovered"
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   // Referencia al elemento <section> que representa el componente. Se usa para observar su visibilidad en pantalla
   const sectionRef = useRef<HTMLElement>(null);
-
-  // Estado para saber si el componente es visible en el viewport (pantalla) del usuario
-  const [isVisible, setIsVisible] = useState(false);
-
-  // TODO: refactor de esto para añadirlo a utils, tambien se utiliza en experience y no
-  // me extrañaria que en otros componentes
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  // hook para saber cuando este componente esté visible en un 10%
+  const isVisible = useIsVisible(sectionRef);
 
   return (
     // TODO: cambiar los hoveredIndex por group-hover (cuando sea necesario)

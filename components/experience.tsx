@@ -4,41 +4,17 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { experiences } from "@/data/experiences-data";
+import { useIsVisible } from "@/hooks/use-is-visible";
 
 export function Experience() {
-  // Estado para rastrear qué tarjeta (u otro elemento) está siendo "hovered" (pasado el cursor por encima)
+  // Estado para rastrear qué experience está siendo "hovered"
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  // Referencia al elemento <section> que representa el componente. Se usa para observar su visibilidad en pantalla.
+  // Referencia al elemento <section> que representa el componente. Se usa para observar su visibilidad en pantalla
   const sectionRef = useRef<HTMLElement>(null);
-
-  // Estado para saber si el componente es visible en el viewport (pantalla) del usuario
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // new IntersectionObserver que detecta si el componente está entrando en la vista del usuario
-    const observer = new IntersectionObserver(
-      // Arrow function con destructuración de arrays en sus parámetros
-      ([entry]) => {
-        // Si el componente entra en la vista, actualizamos el estado a visible
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      // Umbral de visibilidad: 10% del componente debe estar visible para activar el evento
-      { threshold: 0.1 }
-    );
-
-    // Si la referencia al <section> existe, se comienza a observarla
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    // Cleanup
-    return () => observer.disconnect();
-  }, []);
+  // hook para saber cuando este componente esté visible en un 10%
+  const isVisible = useIsVisible(sectionRef);
 
   return (
     <section

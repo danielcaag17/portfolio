@@ -2,29 +2,16 @@
 
 import { Card } from "@/components/ui/card";
 import { skillCategories } from "@/data/skills";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { useIsVisible } from "@/hooks/use-is-visible";
 
 export function Skills() {
+  // Estado para rastrear qué skill está siendo "hovered"
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  // Referencia al elemento <section> que representa el componente. Se usa para observar su visibilidad en pantalla
   const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  // hook para saber cuando este componente esté visible en un 10%
+  const isVisible = useIsVisible(sectionRef);
 
   return (
     <section

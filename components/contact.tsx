@@ -1,13 +1,14 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect, useRef } from "react"
-import { Send, Mail, MapPin, Phone } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Card } from "@/components/ui/card"
+import { useState, useEffect, useRef } from "react";
+import { Send, Mail, MapPin, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card } from "@/components/ui/card";
+import { useIsVisible } from "@/hooks/use-is-visible";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -15,46 +16,41 @@ export function Contact() {
     email: "",
     subject: "",
     message: "",
-  })
-  const [focusedField, setFocusedField] = useState<string | null>(null)
-  const sectionRef = useRef<HTMLElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  });
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
+  // Referencia al elemento <section> que representa el componente. Se usa para observar su visibilidad en pantalla
+  const sectionRef = useRef<HTMLElement>(null);
+  // hook para saber cuando este componente esté visible en un 10%
+  const isVisible = useIsVisible(sectionRef);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-  }
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
-    }))
-  }
+    }));
+  };
 
   return (
-    <section id="contact" ref={sectionRef} className="relative min-h-screen px-6 py-20 lg:px-20">
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="relative min-h-screen px-6 py-20 lg:px-20"
+    >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl"
-          style={{ animation: "pulse-glow 4s ease-in-out infinite, morph 8s ease-in-out infinite" }}
+          style={{
+            animation:
+              "pulse-glow 4s ease-in-out infinite, morph 8s ease-in-out infinite",
+          }}
         />
       </div>
 
@@ -84,8 +80,8 @@ export function Contact() {
             opacity: isVisible ? 1 : 0,
           }}
         >
-          Have a project in mind or just want to chat? I'm always open to discussing new opportunities and
-          collaborations.
+          Have a project in mind or just want to chat? I'm always open to
+          discussing new opportunities and collaborations.
         </p>
 
         <div className="grid gap-8 lg:grid-cols-3">
@@ -97,11 +93,26 @@ export function Contact() {
             }}
           >
             {[
-              { icon: Mail, title: "Email", content: "hello@example.com", href: "mailto:hello@example.com" },
-              { icon: Phone, title: "Phone", content: "+1 (234) 567-890", href: "tel:+1234567890" },
-              { icon: MapPin, title: "Location", content: "San Francisco, CA\nUnited States", href: null },
+              {
+                icon: Mail,
+                title: "Email",
+                content: "hello@example.com",
+                href: "mailto:hello@example.com",
+              },
+              {
+                icon: Phone,
+                title: "Phone",
+                content: "+1 (234) 567-890",
+                href: "tel:+1234567890",
+              },
+              {
+                icon: MapPin,
+                title: "Location",
+                content: "San Francisco, CA\nUnited States",
+                href: null,
+              },
             ].map((item, index) => {
-              const Icon = item.icon
+              const Icon = item.icon;
               return (
                 <Card
                   key={index}
@@ -111,25 +122,34 @@ export function Contact() {
                     transition: "all 0.5s ease",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = "0 10px 30px oklch(0.65 0.19 180 / 0.2)"
+                    e.currentTarget.style.boxShadow =
+                      "0 10px 30px oklch(0.65 0.19 180 / 0.2)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "0 0 0 oklch(0.65 0.19 180 / 0)"
+                    e.currentTarget.style.boxShadow =
+                      "0 0 0 oklch(0.65 0.19 180 / 0)";
                   }}
                 >
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-all duration-500 group-hover:bg-primary group-hover:text-primary-foreground group-hover:rotate-12 group-hover:scale-110">
                     <Icon className="h-6 w-6" />
                   </div>
-                  <h4 className="mb-2 font-bold text-foreground">{item.title}</h4>
+                  <h4 className="mb-2 font-bold text-foreground">
+                    {item.title}
+                  </h4>
                   {item.href ? (
-                    <a href={item.href} className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                    <a
+                      href={item.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
                       {item.content}
                     </a>
                   ) : (
-                    <p className="text-sm text-muted-foreground whitespace-pre-line">{item.content}</p>
+                    <p className="text-sm text-muted-foreground whitespace-pre-line">
+                      {item.content}
+                    </p>
                   )}
                 </Card>
-              )
+              );
             })}
           </div>
 
@@ -143,7 +163,10 @@ export function Contact() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium text-foreground">
+                  <label
+                    htmlFor="name"
+                    className="text-sm font-medium text-foreground"
+                  >
                     Name
                   </label>
                   <div className="relative">
@@ -158,14 +181,20 @@ export function Contact() {
                       required
                       className="bg-background transition-all duration-300"
                       style={{
-                        boxShadow: focusedField === "name" ? "0 0 0 2px oklch(0.65 0.19 180 / 0.3)" : "none",
+                        boxShadow:
+                          focusedField === "name"
+                            ? "0 0 0 2px oklch(0.65 0.19 180 / 0.3)"
+                            : "none",
                       }}
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-foreground">
+                  <label
+                    htmlFor="email"
+                    className="text-sm font-medium text-foreground"
+                  >
                     Email
                   </label>
                   <Input
@@ -180,14 +209,20 @@ export function Contact() {
                     required
                     className="bg-background transition-all duration-300"
                     style={{
-                      boxShadow: focusedField === "email" ? "0 0 0 2px oklch(0.65 0.19 180 / 0.3)" : "none",
+                      boxShadow:
+                        focusedField === "email"
+                          ? "0 0 0 2px oklch(0.65 0.19 180 / 0.3)"
+                          : "none",
                     }}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="subject" className="text-sm font-medium text-foreground">
+                <label
+                  htmlFor="subject"
+                  className="text-sm font-medium text-foreground"
+                >
                   Subject
                 </label>
                 <Input
@@ -201,13 +236,19 @@ export function Contact() {
                   required
                   className="bg-background transition-all duration-300"
                   style={{
-                    boxShadow: focusedField === "subject" ? "0 0 0 2px oklch(0.65 0.19 180 / 0.3)" : "none",
+                    boxShadow:
+                      focusedField === "subject"
+                        ? "0 0 0 2px oklch(0.65 0.19 180 / 0.3)"
+                        : "none",
                   }}
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium text-foreground">
+                <label
+                  htmlFor="message"
+                  className="text-sm font-medium text-foreground"
+                >
                   Message
                 </label>
                 <Textarea
@@ -222,12 +263,19 @@ export function Contact() {
                   required
                   className="resize-none bg-background transition-all duration-300"
                   style={{
-                    boxShadow: focusedField === "message" ? "0 0 0 2px oklch(0.65 0.19 180 / 0.3)" : "none",
+                    boxShadow:
+                      focusedField === "message"
+                        ? "0 0 0 2px oklch(0.65 0.19 180 / 0.3)"
+                        : "none",
                   }}
                 />
               </div>
 
-              <Button type="submit" size="lg" className="group relative w-full overflow-hidden">
+              <Button
+                type="submit"
+                size="lg"
+                className="group relative w-full overflow-hidden"
+              >
                 <span className="relative z-10 flex items-center justify-center">
                   Send Message
                   <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -246,5 +294,5 @@ export function Contact() {
         </footer>
       </div>
     </section>
-  )
+  );
 }
