@@ -51,23 +51,23 @@ const experiences = [
       </>
     ),
     technologies: [
-      "Python",
-      "Django",
-      "FastAPI",
-      "YOLO",
-      "Ultralytics",
-      "NumPy",
-      "scikit-learn",
-      "Matplotlib",
-      "TensorFlow",
-      "seaborn",
-      "SCRUM",
-      "Render",
-      "GitLab",
-      "GitHub",
-      "Docker",
-      "HTML",
       "CSS",
+      "Django",
+      "Docker",
+      "FastAPI",
+      "GitHub",
+      "GitLab",
+      "HTML",
+      "Matplotlib",
+      "NumPy",
+      "Python",
+      "Render",
+      "scikit-learn",
+      "SCRUM",
+      "seaborn",
+      "TensorFlow",
+      "Ultralytics",
+      "YOLO",
     ],
   },
   {
@@ -90,26 +90,26 @@ const experiences = [
       </>
     ),
     technologies: [
-      "JavaScript",
-      "Vue.js",
-      "CSS",
-      "HTML",
       "Agile",
       "C",
       "C++",
-      "Python",
-      "OOP",
-      "SQL",
-      "PostgreSQL",
+      "CSS",
+      "Data Structure and Algorithms",
+      "Django",
+      "HTML",
+      "JavaScript",
+      "JavaScript",
       "JSON",
       "Linux",
+      "OOP",
       "OpenGL",
-      "Data Structure and Algorithms",
       "Parallel Programming",
-      "Django",
+      "PostgreSQL",
+      "Python",
       "SCRUM",
-      "JavaScript",
       "Software Architecture",
+      "SQL",
+      "Vue.js",
     ],
   },
 ];
@@ -186,6 +186,7 @@ export function Experience() {
         {/* space-y-12 --> añadir margen bottom de 3rem (48px) entre cada Card */}
         <div className="space-y-12">
           {experiences.map((exp, index) => (
+            // TODO: cambiar los hoveredIndex por group-hover (cuando sea necesario)
             <Card
               key={index}
               // Funciones para cambiar el estado
@@ -291,7 +292,7 @@ export function Experience() {
                       key={tech}
                       variant="secondary"
                       // Cada Badge tiene su propio hover --> TODO: jugar con eso y crear un botón?
-                      className="bg-secondary/50 text-xs transition-all hover:bg-primary/20 hover:text-primary"
+                      className="bg-secondary/50 text-xs transition-all hover:bg-primary/20 hover:text-primary cursor-pointer"
                       style={{
                         animation:
                           // Animación que eleva ligeremente a todos los Badge (insignias)
