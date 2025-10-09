@@ -7,6 +7,7 @@ import { ExternalLink } from "lucide-react";
 import { useRef, useState } from "react";
 import { experiences } from "@/data/experiences-data";
 import { useIsVisible } from "@/hooks/use-is-visible";
+import { SectionTitle } from "@/components/section-title";
 
 export function Experience() {
   // Estado para rastrear qué experience está siendo "hovered"
@@ -34,22 +35,15 @@ export function Experience() {
 
       {/* mx-auto --> centrar el div horizontalmente */}
       <div className="relative z-10 mx-auto max-w-4xl">
-        <h2
-          className="mb-4 text-sm font-mono text-primary"
-          style={{
-            animation: isVisible ? "reveal 0.6s ease-out" : "none",
+        <SectionTitle
+          h2Text={"<experience />"}
+          h3Text={"Professional Journey"}
+          isVisible={isVisible}
+          revealDelays={{
+            h2Delay: "0s",
+            h3Delay: "0.2s",
           }}
-        >
-          {"<experience />"}
-        </h2>
-        <h3
-          className="mb-16 text-4xl font-bold tracking-tight md:text-5xl"
-          style={{
-            animation: isVisible ? "reveal 0.8s ease-out 0.2s both" : "none",
-          }}
-        >
-          Professional Journey
-        </h3>
+        />
 
         {/* CARDs de las experiencias */}
         {/* space-y-12 --> añadir margen bottom de 3rem (48px) entre cada Card */}

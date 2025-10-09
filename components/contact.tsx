@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { useIsVisible } from "@/hooks/use-is-visible";
 import { revealStyles } from "@/utils/revealStyles";
+import { SectionTitle } from "@/components/section-title";
 
 export function Contact() {
   // Estado que mantiene los datos del formulario
@@ -87,25 +88,19 @@ export function Contact() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl">
-        <h2
-          className="mb-4 text-sm font-mono text-primary"
-          style={revealStyles(isVisible, "0s")}
-        >
-          {"<contact />"}
-        </h2>
-        <h3
-          className="mb-6 text-4xl font-bold tracking-tight md:text-5xl"
-          style={revealStyles(isVisible, "0.2s")}
-        >
-          Let's Work Together
-        </h3>
-        <p
-          className="mb-16 max-w-2xl text-lg text-muted-foreground text-pretty"
-          style={revealStyles(isVisible, "0.4s")}
-        >
-          Have a project in mind or just want to chat? I'm always open to
-          discussing new opportunities and collaborations.
-        </p>
+        <SectionTitle
+          h2Text={"<contact />"}
+          h3Text={"Let's Work Together"}
+          pText={
+            "Have a project in mind or just want to chat? I'm always open to discussing new opportunities and collaborations."
+          }
+          isVisible={isVisible}
+          revealDelays={{
+            h2Delay: "0s",
+            h3Delay: "0.2s",
+            pDelay: "0.4s",
+          }}
+        />
 
         {/* Menú lateral con email, Phone y Location */}
         <div className="grid gap-8 lg:grid-cols-3">

@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { useEffect, useRef, useState } from "react";
 import { projects } from "@/data/projects-data";
 import { useIsVisible } from "@/hooks/use-is-visible";
+import { SectionTitle } from "@/components/section-title";
 
 export function Projects() {
   // Estado para rastrear qué project está siendo "hovered"
@@ -16,6 +17,8 @@ export function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
   // hook para saber cuando este componente esté visible en un 10%
   const isVisible = useIsVisible(sectionRef);
+  // Estado para mostrar o no más descripción de un proyecto
+  const [expanded, setExpanded] = useState(false);
 
   return (
     // TODO: cambiar los hoveredIndex por group-hover (cuando sea necesario)
@@ -47,37 +50,19 @@ export function Projects() {
 
       {/* Contenido principal centrado (mx-auto) */}
       <div className="relative z-10 mx-auto max-w-6xl">
-        {/* TODO: refactorizar si se quiere todos los h2 con <section_name /> */}
-        <h2
-          className="mb-4 text-sm font-mono text-primary"
-          style={{
-            animation: isVisible ? "reveal 0.6s ease-out" : "none",
-            opacity: isVisible ? 1 : 0,
+        <SectionTitle
+          h2Text={"<projects />"}
+          h3Text={"Featured Work"}
+          pText={
+            "A selection of projects that showcase my expertise in building modern web applications with focus on user experience and performance."
+          }
+          isVisible={isVisible}
+          revealDelays={{
+            h2Delay: "0s",
+            h3Delay: "0.2s",
+            pDelay: "0.4s",
           }}
-        >
-          {"<projects />"}
-        </h2>
-
-        {/* Título principal de la sección */}
-        <h3
-          className="mb-6 text-4xl font-bold tracking-tight md:text-5xl"
-          style={{
-            animation: isVisible ? "reveal 0.8s ease-out 0.2s both" : "none",
-            opacity: isVisible ? 1 : 0,
-          }}
-        >
-          Featured Work
-        </h3>
-        <p
-          className="mb-16 max-w-2xl text-lg text-muted-foreground text-pretty"
-          style={{
-            animation: isVisible ? "reveal 1s ease-out 0.4s both" : "none",
-            opacity: isVisible ? 1 : 0,
-          }}
-        >
-          A selection of projects that showcase my expertise in building modern
-          web applications with focus on user experience and performance.
-        </p>
+        />
 
         {/* Tarjeta de cada proyecto */}
         {/* gap-8 --> gap de 2rem --> 32px
@@ -164,9 +149,22 @@ export function Projects() {
                 <h4 className="mb-3 text-xl font-bold text-foreground transition-colors group-hover:text-primary">
                   {project.title}
                 </h4>
-                <p className="mb-4 leading-relaxed text-muted-foreground text-pretty">
+                {/* line-clamp-3 --> mostrar 3 líneas y dejar el resto con puntos suspensivos
+                line-clamp-none --> opción por defecto */}
+                {/* Al hacer hover se muestra el contenido completo --> TODO: que pasa con el móvil? 
+                O arreglar el botón o el hover*/}
+                <p
+                  className={`mb-4 leading-relaxed text-muted-foreground text-pretty line-clamp-3 group-hover:line-clamp-none
+                transition-all duration-300 ${expanded ? "" : "line-clamp-3"}`}
+                >
                   {project.description}
                 </p>
+                <button
+                  onClick={() => setExpanded(!expanded)}
+                  className="text-primary font-medium hover:underline focus:outline-none"
+                >
+                  {expanded ? "Read less" : "Read more"}
+                </button>
 
                 <div className="mb-6 flex flex-wrap gap-2">
                   {/* TODO: de nuevo se puede hacer un refactor con las Badge de experience */}

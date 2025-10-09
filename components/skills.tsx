@@ -5,6 +5,7 @@ import { skillCategories } from "@/data/skills";
 import { useRef, useState } from "react";
 import { useIsVisible } from "@/hooks/use-is-visible";
 import { revealStyles } from "@/utils/revealStyles";
+import { SectionTitle } from "@/components/section-title";
 
 export function Skills() {
   // Estado para rastrear qué skill está siendo "hovered"
@@ -31,27 +32,20 @@ export function Skills() {
         />
       </div>
 
-      {/* TODO: si no estaba puesto, los <skills> o <projects> que tanto aprecen --> componente nuevo */}
       <div className="relative z-10 mx-auto max-w-6xl">
-        <h2
-          className="mb-4 text-sm font-mono text-primary"
-          style={revealStyles(isVisible, "0s")}
-        >
-          {"<skills />"}
-        </h2>
-        <h3
-          className="mb-6 text-4xl font-bold tracking-tight md:text-5xl"
-          style={revealStyles(isVisible, "0.2s")}
-        >
-          Technical Expertise
-        </h3>
-        <p
-          className="mb-16 max-w-2xl text-lg text-muted-foreground text-pretty"
-          style={revealStyles(isVisible, "0.4s")}
-        >
-          A comprehensive toolkit built through years of hands-on experience and
-          continuous learning in modern web development.
-        </p>
+        <SectionTitle
+          h2Text={"<skills />"}
+          h3Text={"Technical Expertise"}
+          pText={
+            "A comprehensive toolkit built through years of hands-on experience and continuous learning in modern web development."
+          }
+          isVisible={isVisible}
+          revealDelays={{
+            h2Delay: "0s", // Retraso para el h2
+            h3Delay: "0.2s", // Retraso para el h3
+            pDelay: "0.4s", // Retraso para el p
+          }}
+        />
 
         {/* Grid de las skills, en pantallas grandes 3 columnas, en medianas 2, en pequeñas 1 */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -64,7 +58,8 @@ export function Skills() {
                 key={index}
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className="group relative border-border bg-card p-6 transition-all duration-500 hover:border-primary/50"
+                className="group relative border-border bg-card/50 p-6 transition-all duration-500 
+                hover:border-primary/50"
                 style={{
                   // Se prioriza animación con solo opacidad frente al transform que solapaba
                   animation: isVisible
