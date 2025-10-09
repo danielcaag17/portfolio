@@ -2,9 +2,9 @@
 
 import { ExternalLink } from "lucide-react";
 import { SiGithub } from "react-icons/si";
-import { Card } from "@/components/ui/card";
+import { CardWrapper } from "@/components/card-wrapper";
 import { Button } from "@/components/ui/button";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { projects } from "@/data/projects-data";
 import { useIsVisible } from "@/hooks/use-is-visible";
 import { SectionTitle } from "@/components/section-title";
@@ -17,8 +17,8 @@ export function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
   // hook para saber cuando este componente esté visible en un 10%
   const isVisible = useIsVisible(sectionRef);
-  // Estado para mostrar o no más descripción de un proyecto
-  const [expanded, setExpanded] = useState(false);
+  // Detectar si es en un dispositivo móvil
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
   return (
     // TODO: cambiar los hoveredIndex por group-hover (cuando sea necesario)
@@ -66,79 +66,46 @@ export function Projects() {
 
         {/* Tarjeta de cada proyecto */}
         {/* gap-8 --> gap de 2rem --> 32px
-        cuando son pantallas medias / grandes se hace un grid de 2 columnas */}
+          cuando son pantallas medias / grandes se hace un grid de 2 columnas */}
         <div className="grid gap-8 md:grid-cols-2">
           {projects.map((project, index) => (
-            <Card
+            <CardWrapper
               key={index}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               className="group relative overflow-hidden border-border bg-card transition-all duration-500 
-              hover:border-primary/50"
+              hover:border-primary/50 hover:translate-y-[-8px] hover:scale-[1.02]"
               style={{
                 // Se prioriza el transform del hover antes que la animación de reveal con translateY
                 animation: isVisible
                   ? `reveal-opacity 0.6s ease-out ${0.6 + index * 0.1}s both`
                   : "none",
-                transform:
-                  hoveredIndex === index
-                    ? "translateY(-8px) scale(1.02)"
-                    : "translateY(0) scale(1)",
                 boxShadow:
                   hoveredIndex === index
                     ? "0 20px 40px oklch(0.65 0.19 180 / 0.2), 0 0 60px oklch(0.65 0.19 180 / 0.1)"
                     : "none",
               }}
             >
-              {/* Empeoraba mucho la legibilidad y ha sido mejor eliminarlo en este caso */}
-              {/* -inset-[1px] --> mover el div ligeramente más allá del borde de la tarjeta los 
-              '[]' son para indicar la medida exacta */}
-              {/* <div
-                // will-change --> indicar al navegador que se va a animar esta propiedad (así se prepara
-                // para optimizar)
-                className="pointer-events-none absolute -inset-[1px] rounded-lg opacity-0 transition-opacity 
-                duration-500 group-hover:opacity-100 will-change-auto"
-                style={{
-                  background:
-                    // Degradado en diagonal, se repite el primero al final para hacer un bucle suave
-                    `linear-gradient(45deg, 
-                    oklch(0.65 0.19 180), 
-                    oklch(0.7 0.12 160), 
-                    oklch(0.65 0.19 180))`,
-                  // Hacer que el fondo sea más grande es clave para que el degradado puede "entrar" y "salir" de
-                  // los bordes visuales. Sino el degradado sería estático o cortado
-                  backgroundSize: "200% 200%",
-                  animation:
-                    hoveredIndex === index
-                      ? "shimmer 3s linear infinite"
-                      : "none",
-                  zIndex: -1,
-                }}
-              /> */}
-
               {/* Imagen del proyecto */}
-              {/* aspect-video --> Mantener una relación 16:9 
-              overflow-hidden --> impide que la imagen sobrepase los bordes al escalar */}
+              {/* aspect-video --> Mantener una relación 16:9 */}
+              {/* overflow-hidden --> impide que la imagen sobrepase los bordes al escalar */}
               <div className="relative aspect-video overflow-hidden bg-secondary">
                 <img
                   src={project.image || "/placeholder.svg"}
                   alt={project.title}
-                  // object-cover --> la imagen se escala para cubrir todo el espacio sin deformarse (recorta
-                  // si hace falta), es equivalente a object-fit: cover;
-                  className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110"
+                  // object-cover --> la imagen se escala para cubrir todo el espacio sin deformarse
+                  // (recorta si hace falta), es equivalente en css a object-fit: cover;
+                  className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110
+                  brightness-[1] constrast-[1] group-hover:brightness-[1.1] group-hover:contrast-[1.1]"
                   style={{
-                    filter:
-                      hoveredIndex === index
-                        ? "brightness(1.1) contrast(1.1)"
-                        : "brightness(1) contrast(1)",
                     transform:
                       hoveredIndex === index
                         ? `scale(1.1) rotate(${index % 2 === 0 ? -2 : 2}deg)`
                         : "scale(1) rotate(0deg)",
                   }}
                 />
+
                 {/* Overlay con degradado al hacer hover */}
-                {/* bg-gradient-to-t --> "to top" va de bottom a top */}
                 <div
                   className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent 
                 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -149,27 +116,19 @@ export function Projects() {
                 <h4 className="mb-3 text-xl font-bold text-foreground transition-colors group-hover:text-primary">
                   {project.title}
                 </h4>
-                {/* line-clamp-3 --> mostrar 3 líneas y dejar el resto con puntos suspensivos
-                line-clamp-none --> opción por defecto */}
-                {/* Al hacer hover se muestra el contenido completo --> TODO: que pasa con el móvil? 
-                O arreglar el botón o el hover*/}
+                {/* line-clamp-3 --> mostrar 3 líneas y dejar el resto con puntos suspensivos */}
+                {/* line-clamp-none --> opción por defecto, no hay límite de líneas */}
                 <p
-                  className={`mb-4 leading-relaxed text-muted-foreground text-pretty line-clamp-3 group-hover:line-clamp-none
-                transition-all duration-300 ${expanded ? "" : "line-clamp-3"}`}
+                  id={`description-${project.title}`}
+                  className={`mb-4 leading-relaxed text-muted-foreground text-pretty
+                transition-all duration-300 md:line-clamp-none lg:line-clamp-3 lg:group-hover:line-clamp-none`}
                 >
                   {project.description}
                 </p>
-                <button
-                  onClick={() => setExpanded(!expanded)}
-                  className="text-primary font-medium hover:underline focus:outline-none"
-                >
-                  {/* TODO: quitar el botón o hacer algo al respecto */}
-                  {expanded ? "Read less" : "Read more"}
-                </button>
 
                 <div className="mb-6 flex flex-wrap gap-2">
-                  {/* TODO: de nuevo se puede hacer un refactor con las Badge de experience */}
                   {project.technologies.map((tech, techIndex) => (
+                    // Tecnologías usadas en el proyecto
                     <MyBadge
                       key={tech}
                       tech={tech}
@@ -219,7 +178,7 @@ export function Projects() {
                   ) : null}
                 </div>
               </div>
-            </Card>
+            </CardWrapper>
           ))}
         </div>
       </div>
