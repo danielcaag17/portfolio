@@ -1,6 +1,6 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
+import { CardWrapper } from "@/components/card-wrapper";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { useRef, useState } from "react";
@@ -25,16 +25,14 @@ export function Experience() {
       ref={sectionRef}
       className="relative min-h-screen px-6 py-20 lg:px-20"
     >
-      {/* Línea decorativa vertical con gradient */}
-      {/* hidden por defecto, pero en pantallas grandes display block (se hace visible) 
-      bg-gradiente-to-b --> gradiente de colores de top a bottom */}
+      {/* Línea decorativa vertical con gradient de top a bottom*/}
       <div
         className="pointer-events-none absolute left-0 top-0 hidden h-full w-px bg-gradient-to-b 
       from-transparent via-primary/30 to-transparent lg:left-80 lg:block"
       />
 
-      {/* mx-auto --> centrar el div horizontalmente */}
       <div className="relative z-10 mx-auto max-w-4xl">
+        {/* Sección del título de la sección experience */}
         <SectionTitle
           h2Text={"<experience />"}
           h3Text={"Professional Journey"}
@@ -46,29 +44,21 @@ export function Experience() {
         />
 
         {/* CARDs de las experiencias */}
-        {/* space-y-12 --> añadir margen bottom de 3rem (48px) entre cada Card */}
         <div className="space-y-12">
           {experiences.map((exp, index) => (
-            // TODO: cambiar los hoveredIndex por group-hover (cuando sea necesario)
-            <Card
+            <CardWrapper
               key={index}
               // Funciones para cambiar el estado
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              // border-border --> Aplica color personalizado al borde
-              // bg-card --> Aplica color personalizado al background
               // El overflow-hidden solo funcionará cuando tenga un alto y ancho limitado
               // Ahora mismo tiene el mismo efecto que overflow-visible
               className="group relative overflow-hidden border-border bg-card p-8 transition-all 
               duration-500 hover:border-primary/50"
               style={{
-                // El transform no funciona
                 animation: isVisible
                   ? `reveal 0.6s ease-out ${0.6 + index * 0.2}s both`
                   : "none",
-                // No funciona el transform pues se sobreescribe por la animación reveal
-                transform:
-                  hoveredIndex === index ? "translateX(12px)" : "translateX(0)",
                 boxShadow:
                   hoveredIndex === index
                     ? "0 10px 40px oklch(0.65 0.19 180 / 0.15)"
@@ -78,7 +68,7 @@ export function Experience() {
               {/* Botón para abrir el sitio web */}
               {exp.companyURL && (
                 <Button
-                  // Poner la key de nuevo es redundante (y potencialmente problemático)
+                  // Poner la key de nuevo en este caso es redundante (y potencialmente problemático)
                   // El Button ya está dentro de un padre con la key={index}
                   // key={index}
                   variant="ghost"
@@ -104,28 +94,22 @@ export function Experience() {
                 </Button>
               )}
 
-              {/* Línea vertical de color animada */}
+              {/* Línea vertical de color animada dentro de la Card*/}
               <div
-                // w-1 --> 1 * var(--spacing) = 0.25rem = 4px
-                className="absolute left-0 top-0 w-1 bg-primary transition-all duration-500"
-                style={{
-                  height: hoveredIndex === index ? "100%" : "0%",
-                  opacity: hoveredIndex === index ? 1 : 0,
-                }}
+                className="absolute left-0 top-0 w-1 bg-primary transition-all 
+              duration-500 h-0 group-hover:h-full opacity-100"
               />
 
               {/* Efecto de iluminación top-left al hacer hover */}
               <div
                 className="pointer-events-none absolute -left-20 -top-20 h-40 w-40 
-                rounded-full bg-primary/20 blur-3xl transition-opacity duration-500"
-                style={{
-                  opacity: hoveredIndex === index ? 1 : 0,
-                }}
+                rounded-full bg-primary/20 blur-3xl transition-opacity duration-500
+                opacity-0 group-hover:opacity-100"
               />
 
               <div className="relative z-10">
                 <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
-                  {/* div necesario para dividir los bloques de texto */}
+                  {/* div necesario para dividir los dos bloques de texto */}
                   <div>
                     <div
                       className="mb-2 text-xs font-mono text-muted-foreground transition-colors"
@@ -151,6 +135,7 @@ export function Experience() {
 
                 <div className="flex flex-wrap gap-2">
                   {exp.technologies.map((tech, techIndex) => (
+                    // Tecnologías usadas en la experiencia
                     <MyBadge
                       key={tech}
                       tech={tech}
@@ -161,7 +146,7 @@ export function Experience() {
                   ))}
                 </div>
               </div>
-            </Card>
+            </CardWrapper>
           ))}
         </div>
       </div>
