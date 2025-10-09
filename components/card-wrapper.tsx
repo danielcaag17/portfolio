@@ -9,7 +9,8 @@ interface CardWrapperProps {
   style?: React.CSSProperties; // Para estilos adicionales como la animación
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
-  key?: React.Key; // Si usas key en el componente
+  // No es correcto pasar la key aquí, debe pasarse en el componente que usa CardWrapper
+  // key?: React.Key;
 }
 
 export const CardWrapper: React.FC<CardWrapperProps> = ({
@@ -19,12 +20,10 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
   style,
   onMouseEnter,
   onMouseLeave,
-  key,
 }) => {
   return (
     <Component>
       <Card
-        key={key}
         className={className}
         style={style}
         onMouseEnter={onMouseEnter}
