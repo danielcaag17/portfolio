@@ -4,11 +4,11 @@ import { ExternalLink } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { projects } from "@/data/projects-data";
 import { useIsVisible } from "@/hooks/use-is-visible";
 import { SectionTitle } from "@/components/section-title";
+import { MyBadge } from "@/components/my-badge";
 
 export function Projects() {
   // Estado para rastrear qué project está siendo "hovered"
@@ -163,25 +163,20 @@ export function Projects() {
                   onClick={() => setExpanded(!expanded)}
                   className="text-primary font-medium hover:underline focus:outline-none"
                 >
+                  {/* TODO: quitar el botón o hacer algo al respecto */}
                   {expanded ? "Read less" : "Read more"}
                 </button>
 
                 <div className="mb-6 flex flex-wrap gap-2">
                   {/* TODO: de nuevo se puede hacer un refactor con las Badge de experience */}
                   {project.technologies.map((tech, techIndex) => (
-                    <Badge
+                    <MyBadge
                       key={tech}
-                      variant="secondary"
-                      className="bg-secondary/50 text-xs transition-all hover:bg-primary/20 hover:text-primary cursor-pointer"
-                      style={{
-                        animation:
-                          hoveredIndex === index
-                            ? `float-up 0.3s ease-out ${techIndex * 0.05}s both`
-                            : "none",
-                      }}
-                    >
-                      {tech}
-                    </Badge>
+                      tech={tech}
+                      techIndex={techIndex}
+                      hoveredIndex={hoveredIndex}
+                      index={index}
+                    />
                   ))}
                 </div>
 

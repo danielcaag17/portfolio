@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
@@ -8,6 +7,7 @@ import { useRef, useState } from "react";
 import { experiences } from "@/data/experiences-data";
 import { useIsVisible } from "@/hooks/use-is-visible";
 import { SectionTitle } from "@/components/section-title";
+import { MyBadge } from "@/components/my-badge";
 
 export function Experience() {
   // Estado para rastrear qué experience está siendo "hovered"
@@ -151,21 +151,13 @@ export function Experience() {
 
                 <div className="flex flex-wrap gap-2">
                   {exp.technologies.map((tech, techIndex) => (
-                    <Badge
+                    <MyBadge
                       key={tech}
-                      variant="secondary"
-                      // Cada Badge tiene su propio hover --> TODO: jugar con eso y crear un botón?
-                      className="bg-secondary/50 text-xs transition-all hover:bg-primary/20 hover:text-primary cursor-pointer"
-                      style={{
-                        animation:
-                          // Animación que eleva ligeremente a todos los Badge (insignias)
-                          hoveredIndex === index
-                            ? `float-up 0.3s ease-out ${techIndex * 0.05}s both`
-                            : "none",
-                      }}
-                    >
-                      {tech}
-                    </Badge>
+                      tech={tech}
+                      techIndex={techIndex}
+                      hoveredIndex={hoveredIndex}
+                      index={index}
+                    />
                   ))}
                 </div>
               </div>
