@@ -185,7 +185,7 @@ export function Contact() {
                               bg-black text-xs rounded py-1 px-3 min-w-32 -right-16 bottom-10 opacity-90 
                               text-white"
                             >
-                              ¡Correo copiado!
+                              Email copied!
                             </span>
                           )}
                         </div>
