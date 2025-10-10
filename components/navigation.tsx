@@ -35,14 +35,14 @@ export function Navigation() {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            // Si el elemento está al menos 50% visible
+            // Si el elemento está al menos 30% visible
             if (entry.isIntersecting) {
               // Actualiza la sección activa con el ID del elemento visible
               setActiveSection(entry.target.id);
             }
           });
         },
-        { threshold: 0.5 } // 50% del elemento debe estar visible para activar
+        { threshold: 0.3 } // 30% del elemento debe estar visible para activar
       );
 
       // Observa cada sección definida en el arreglo `navItems`
