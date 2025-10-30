@@ -3,7 +3,8 @@
 import type React from "react";
 
 import { useState, useRef } from "react";
-import { Send, Mail, MapPin, Phone, Link } from "lucide-react";
+import { SiLinkedin } from "react-icons/si";
+import { Send, Mail, MapPin, Link } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -116,10 +117,10 @@ export function Contact() {
                 href: "mailto:danielcanyizares@gmail.com",
               },
               {
-                icon: Phone,
-                title: "Phone",
-                content: "+34 636 998 575",
-                href: "tel:+34636998575",
+                icon: SiLinkedin,
+                title: "LinkedIn",
+                content: "in/daniel-canizares-aguilar",
+                href: "https://www.linkedin.com/in/daniel-canizares-aguilar/",
               },
               {
                 icon: MapPin,
