@@ -30,9 +30,8 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       "Django",
       "FastAPI",
-      "GraphQL",
+      "Machine Learning Integration",
       "MongoDB",
-      "Node.js",
       "PostgreSQL",
       "Python",
       "REST APIs",
