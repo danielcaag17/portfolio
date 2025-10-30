@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { skillCategories } from "@/data/skills";
+import { skillCategories } from "@/data/skills-data";
 import { useRef, useState } from "react";
 import { useIsVisible } from "@/hooks/use-is-visible";
 import { revealStyles } from "@/utils/revealStyles";
@@ -33,6 +33,7 @@ export function Skills() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl">
+        {/* Sección del título de la sección skills */}
         <SectionTitle
           h2Text={"<skills />"}
           h3Text={"Technical Expertise"}
