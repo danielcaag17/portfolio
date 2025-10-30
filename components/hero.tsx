@@ -89,9 +89,9 @@ export function Hero() {
       </div>
 
       {/* redes sociales solo en pantallas < lg */}
-      <section className="absolute top-4 right-4 flex lg:hidden">
-        <SocialLinks delay={0}/>
-      </section>
+      <div className="absolute top-4 right-4 flex lg:hidden">
+        <SocialLinks delay={0} />
+      </div>
 
       <div className="relative z-10 max-w-4xl">
         {/* inline-block junto con overflow-hidden crean un contenedor recortado
