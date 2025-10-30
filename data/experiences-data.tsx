@@ -39,7 +39,7 @@ export const experiences: Experience[] = [
   },
   {
     period: "2020 — 2025",
-    title: "Frontend Developer",
+    title: "Software Developer",
     company:
       "Facultat d'Informàtica de Barcelona - Universitat Politècnica de Catalunya",
     companyURL:
