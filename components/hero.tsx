@@ -3,6 +3,7 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
+import { SocialLinks } from "@/components/SocialLinks";
 
 export function Hero() {
   // Apunta al contenedor principal
@@ -86,6 +87,11 @@ export function Hero() {
           className="absolute h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/15 blur-3xl pointer-events-none"
         />
       </div>
+
+      {/* redes sociales solo en pantallas < lg */}
+      <section className="absolute top-4 right-4 flex lg:hidden">
+        <SocialLinks delay={0}/>
+      </section>
 
       <div className="relative z-10 max-w-4xl">
         {/* inline-block junto con overflow-hidden crean un contenedor recortado
