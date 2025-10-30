@@ -5,6 +5,7 @@ import { useIsVisible } from "@/hooks/use-is-visible";
 import { SectionTitle } from "@/components/section-title";
 import { CardWrapper } from "@/components/card-wrapper";
 import { ArrowRight } from "lucide-react";
+import { certifications } from "@/data/certifications-data";
 
 export function Certifications() {
   // Estado para rastrear qué certificación está siendo "hovered"
@@ -13,18 +14,6 @@ export function Certifications() {
   const sectionRef = useRef<HTMLElement>(null);
   // hook para saber cuando este componente esté visible en un 10%
   const isVisible = useIsVisible(sectionRef);
-
-  const certifications = [
-    {
-      title: "First Certificate in English - B2",
-      company: "Cambridge English Exams",
-      companyURL: "https://www.cambridgeenglish.org/exams-and-tests/first/",
-      date: "JUNE 2021",
-      description:
-        "High intermediate level of certified English, demonstrating competence in comprehension, writing and oral communication in professional contexts.",
-      certificationURL: "/B2.pdf",
-    },
-  ];
 
   return (
     <section
