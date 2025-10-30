@@ -31,7 +31,6 @@ export const skillCategories: SkillCategory[] = [
       "Django",
       "FastAPI",
       "Machine Learning Integration",
-      "MongoDB",
       "PostgreSQL",
       "Python",
       "REST APIs",
