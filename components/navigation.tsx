@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 // Font Awesome
-import { SiGithub, SiLinkedin } from "react-icons/si";
+import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
 import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -244,6 +244,7 @@ export function Navigation() {
             href: "https://www.linkedin.com/in/daniel-canizares-aguilar/",
           },
           { icon: Mail, href: "mailto:danielcanyizares@gmail.com" },
+          { icon: SiX, href: "https://x.com/Danielcaag" },
         ].map(({ icon: Icon, href }, index) => (
           <Button
             key={index}
