@@ -2,7 +2,36 @@ import { Experience } from "@/types/experience";
 
 export const experiences: Experience[] = [
   {
-    period: "2024 — 2025",
+    period: "Dec. 2025 - Present",
+    title: "Junior Java Developer",
+    company: "Linecom Networks S.L.",
+    companyURL: "https://www.linecom.net/",
+    description: (
+      <>
+        As a Junior Java Developer at Linecom Networks S.L., I am responsible
+        for developing and maintaining backend applications using Java and
+        Spring Boot. My role involves collaborating with cross-functional teams
+        to design, implement, and optimize software solutions that meet client
+        requirements. I actively participate in code reviews, contribute to
+        improving development processes, and stay updated with the latest
+        industry trends to ensure the delivery of high-quality software
+        products.
+      </>
+    ),
+    technologies: [
+      "CI/CD",
+      "Git",
+      "JasperReports",
+      "Java",
+      "Jenkins",
+      "Maven",
+      "Spring Boot",
+      "SQL",
+      "Testing",
+    ],
+  },
+  {
+    period: "Sep. 2024 — Jul. 2025",
     title: "Erasmus in Naples - Italy",
     company: "Università degli Studi della Campania Luigi Vanvitelli",
     companyURL:
@@ -10,11 +39,11 @@ export const experiences: Experience[] = [
     description: (
       <>
         Erasmus for the final year of university and final degree project
-        completed in Naples. The most relevant subjects are:{" "}
-        <strong>Distributed System</strong>,{" "}
-        <strong>Knowledge Engineering and Artificial Intelligence</strong>,{" "}
-        <strong>Advanced Software Engineering</strong> and{" "}
-        <strong>Machine Learning</strong>
+        completed in Naples. The most relevant subjects are:
+        <strong> Distributed System</strong>,
+        <strong> Knowledge Engineering and Artificial Intelligence</strong>,
+        <strong> Advanced Software Engineering</strong> and
+        <strong> Machine Learning</strong>
       </>
     ),
     technologies: [
@@ -38,7 +67,7 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    period: "2020 — 2025",
+    period: "Sep. 2020 — Jul. 2025",
     title: "Software Developer",
     company:
       "Facultat d'Informàtica de Barcelona - Universitat Politècnica de Catalunya",
